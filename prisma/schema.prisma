@@ -5,20 +5,21 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["filterJson", "relationJoins"]
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL")
 }
 
-
 model Profile {
-  id     Int     @id @default(autoincrement())
-  bio    String  @db.VarChar(1000)
-  user   User    @relation(fields: [userId], references: [id])
-  userId Int     @unique
+  id     Int    @id @default(autoincrement())
+  bio    String @db.VarChar(1000)
+  user   User   @relation(fields: [userId], references: [id])
+  userId Int    @unique
 }
 
 model User {
@@ -26,4 +27,28 @@ model User {
   email   String   @unique @db.VarChar(255)
   name    String   @db.VarChar(255)
   profile Profile?
+}
+
+model Standings {
+  id     Int    @id @default(autoincrement())
+  league Int    @unique
+  season String @db.VarChar(255)
+}
+
+model Leagues {
+  id      Int    @id @default(autoincrement())
+  country String @db.VarChar(255)
+  name    String @db.VarChar(255)
+  search  String @db.VarChar(255)
+}
+
+model TeamStatistics {
+  id     Int    @id @default(autoincrement())
+  season String @db.VarChar(255)
+  league Int    @unique
+}
+
+model QueryResults {
+  id          Int  @id @default(autoincrement())
+  appMetadata Json
 }
