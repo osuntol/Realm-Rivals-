@@ -12,7 +12,7 @@ export default function players() {
   useEffect(() => {
     async function getPlayers() {
       try {
-        const allPlayers = await prisma.queryResults.findMany()
+        const allPlayers = await prisma.queryResults1.findMany()
         setPlayerName(allPlayers)
       }
       catch (error) {

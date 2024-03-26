@@ -1,20 +1,27 @@
 'use client'
 import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 import { useState } from "react"
-import { createJson } from "../../../api/dataFetch"
+import { createJson } from "../../../api/fetchFromApi"
 
 
 
 export default function SearchBar() {
   //set state for name that will be changing
   const [name, setName] = useState("")
+  const [query, setQuery] = useState(`
+    query 
   
+  
+  `)
   // handling the input from the field on the browser then sets name
 
 
   //handle click function when button is clicked
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+
+
+    
 
     try {
       await createJson(name);
@@ -24,6 +31,8 @@ export default function SearchBar() {
     
     return;
   }
+
+
 
   return (
     <div>
