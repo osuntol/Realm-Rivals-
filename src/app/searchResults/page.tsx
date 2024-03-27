@@ -1,34 +1,26 @@
 'use client'
-import { RESPONSE_LIMIT_DEFAULT } from "next/dist/server/api-utils";
 import { useState } from "react"
-import { createJson } from "../../../api/fetchFromApi"
+import {  PrismaClient } from "@prisma/client";
+import { NextApiRequest, NextApiResponse } from "next";
+import { createJson } from "../api/fetchFromApi";
 
-
-
+const prisma = new PrismaClient
 export default function SearchBar() {
   //set state for name that will be changing
-  const [name, setName] = useState("")
-  const [query, setQuery] = useState(`
-    query 
-  
-  
-  `)
+  const [name, setName] = useState<string>("")
   // handling the input from the field on the browser then sets name
 
-
+ 
   //handle click function when button is clicked
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-
-    
-
     try {
+
       await createJson(name);
     } catch (error) {
       console.log("ERROR+_____>", error)
     }
-    
+
     return;
   }
 
